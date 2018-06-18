@@ -1,1 +1,1 @@
-# GIT
+Ultima version a desarrollar
