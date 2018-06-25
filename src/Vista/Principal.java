@@ -40,6 +40,10 @@ public class Principal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         mnuLogin = new javax.swing.JMenu();
         mnuSalir = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -73,6 +77,18 @@ public class Principal extends javax.swing.JFrame {
         jMenu1.add(mnuSalir);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Alumno");
+        jMenuBar1.add(jMenu2);
+
+        jMenu4.setText("Docente");
+        jMenuBar1.add(jMenu4);
+
+        jMenu3.setText("Funcionario");
+        jMenuBar1.add(jMenu3);
+
+        jMenu5.setText("Administrador");
+        jMenuBar1.add(jMenu5);
 
         setJMenuBar(jMenuBar1);
 
@@ -171,6 +187,10 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu mnuLogin;
     private javax.swing.JMenu mnuSalir;

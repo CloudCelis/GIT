@@ -244,6 +244,8 @@ public class frmLogin extends javax.swing.JFrame {
         }
         else
         {
+            
+            
             javax.swing.JOptionPane.showMessageDialog(this
                     , "Bienvenido " + usuario.getNombre() + " Ahora habilitamos los menus segun corresponda al perfil"
                     , "Conectado"
