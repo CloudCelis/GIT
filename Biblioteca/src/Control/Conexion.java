@@ -6,10 +6,11 @@
 package Control;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,83 +19,85 @@ import java.sql.Statement;
 public class Conexion 
 {
     //varriable de conexion
-    Connection conexion;
+    Connection conn;
         
     //Retornara el resultado de la conexion
-    public  boolean getConexion()
+    public  boolean getConexion() throws SQLException, ClassNotFoundException
     {
-       return crearConexion();
-    }
-    
-    //Prepara la conexion y retorna el estado de esta
-    public  boolean crearConexion()
-    {
-        String url = "jdbc:mysql://localhost:3306/biblioteca";
-        String user = "root";
-        String pass = "111417";
-
         try
         {
-            conexion = DriverManager.getConnection(url, user,pass);
-            System.out.println("Conectado!!");
-
-        }catch(SQLException e)
+            conn = Servicios.Conexion.obtener();
+        }
+        catch(SQLException e)
         {
             System.out.println(e.getMessage());
-            return false;
         }
+        
         
         return true;
-        
     }
+
     
     //Ejecutara sentencias DML
-    public  boolean ejecutarSQL(String sql)
+    public  boolean ejecutarSQL(String sql) throws SQLException
     {
-        if (getConexion())
-        {
-            try 
+        try {
+            if (getConexion()) 
             {
-                Statement sentencia = conexion.createStatement();
-                sentencia.executeUpdate(sql);
-                conexion.close();
-            } 
-            catch (SQLException ex) 
+                try
+                {
+                    Statement sentencia = conn.createStatement();
+                    sentencia.executeUpdate(sql);
+                    conn.close(); 
+                }
+                catch (SQLException ex)
+                {
+                    ex.printStackTrace();
+                    return false;
+                }
+                
+                return true;
+            }
+            else
             {
-                ex.printStackTrace();
                 return false;
             }
-
-           return true;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else
-        {
-            return false;
-        }        
+        return true;
     }
     
     //Ejecutara solo sentencias Select
-    public  ResultSet ejecutarSQLSelect(String sql)
+    public  ResultSet ejecutarSQLSelect(String sql) throws SQLException
     {
-        if (getConexion())
-        {
-            ResultSet resultado;
-            try 
+        ResultSet resultado;
+        
+        try {
+            if (getConexion()) 
             {
-                Statement sentencia = conexion.createStatement();
-                resultado = sentencia.executeQuery(sql);
-            } 
-            catch (SQLException ex) 
+                
+                try
+                {
+                    Statement sentencia = conn.createStatement(); 
+                    resultado = sentencia.executeQuery(sql);
+                }
+                catch (SQLException ex)
+                {
+                    ex.printStackTrace();
+                    return null;
+                }
+                
+                return resultado;
+            }
+            else
             {
-                ex.printStackTrace();
                 return null;
             }
-
-           return resultado;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        else
-        {
-            return null;
-        }
+        
+        return null;
     }
 }

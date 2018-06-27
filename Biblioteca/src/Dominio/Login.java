@@ -29,12 +29,28 @@ public class Login
         //Leemos los datos del usuario (si existe)
         //Atencion con dejar un espacio despues de abrir las comillas
         //eso impide que la las instrucciones de la query queden pegadas
-        String consulta = "select idusuario" +
-                            "	, usuario" +
-                            "    ,  password" +
-                            " from usuario" +
-                            " where usuario = '" +user + "'" +
-                            " and password = sha1('" + passwd + "')";
+        
+        String consulta = "select us.idusuario" +
+                        "	, us.usuario" +
+                        "    , da.rut" +
+                        "    , concat(da.nombre1, ' ', da.apellido1, ' ', da.apellido2) nombre" +
+                        "    , pe.idperfil" +
+                        "    , pe.perfil" +
+                        "    , us.password" +
+                        " from usuario us" +
+                        "	, usuario_has_perfil has" +
+                        "    , usuario_has_datos_usu dus" +
+                        "    , datos_usu da" +
+                        "    , perfil pe" +
+                        " where upper(trim(us.usuario)) = upper(trim('" + user + "'))" +
+                        " and us.password =  sha1('" + passwd + "')" +
+                        " and ifnull(us.vigente, 'S') = 'S'" +
+                        " and has.usuario_idusuario = us.idusuario" +
+                        " and dus.usuario_idusuario = us.idusuario" +
+                        " and da.rut = dus.datos_usu_rut" +
+                        " and ifnull(da.vigente, 'S') = 'S'" +
+                        " and pe.idperfil = has.perfil_idperfil" +
+                        " and ifnull(pe.vigente, 'S') = 'S'";
 
         ResultSet resultado = con.ejecutarSQLSelect(consulta);
         
@@ -46,7 +62,8 @@ public class Login
                 idUsuario = resultado.getInt("idusuario");
                 nombreUsuario = resultado.getString("usuario");
                 clave = resultado.getString("password");
-                tipo ++;
+                tipo = tipo + Integer.parseInt(resultado.getString("idperfil"));
+                
             }
         }
         

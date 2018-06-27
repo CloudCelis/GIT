@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Servicios.Configuracion;
 import Modelo.Usuario;
 import java.awt.event.KeyEvent;
 import Dominio.Login;
@@ -222,8 +223,9 @@ public class frmLogin extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // Llamaremos a los metodos mecesarios para validar al uausrio
-        
+        String result = "?";
         Login lo = new Login();
+        int perfil = 0;
         
         Usuario usuario = new Usuario();
         
@@ -244,15 +246,47 @@ public class frmLogin extends javax.swing.JFrame {
         }
         else
         {
-            javax.swing.JOptionPane.showMessageDialog(this
-                    , "Bienvenido " + usuario.getNombre() + " Ahora habilitamos los menus segun corresponda al perfil"
+            this.setVisible(false);
+            if (usuario.getTipo() > 4)
+            {
+                int n = JOptionPane.showConfirmDialog(null,"Desea conectarse como Supervisor","Login",JOptionPane.YES_NO_OPTION);
+
+                switch (n) {
+                case JOptionPane.YES_OPTION:
+                  result = "Si";
+                  break;
+                case JOptionPane.NO_OPTION:
+                  result = "No";
+                  break;
+                default:
+                  ;
+                }
+            }
+            
+            if (result == "Si")
+            {
+                javax.swing.JOptionPane.showMessageDialog(this
+                    , "Bienvenido " + usuario.getNombre() + ", Ahora estas conectado como Administrador"
                     , "Conectado"
                     , JOptionPane.ERROR_MESSAGE);
+                
+                perfil=4;
+            }
             
-            JMenu p = new Principal().menuLogin();
-            p.setText("Logout");
-            p.repaint();
+            if (result == "No")
+            {
+                Configuracion.getSingletonInstance(usuario.getTipo()-4);
+                javax.swing.JOptionPane.showMessageDialog(this
+                    , "Bienvenido " + usuario.getNombre()
+                    , "Conectado"
+                    , JOptionPane.ERROR_MESSAGE);
+                
+                perfil = usuario.getTipo()-4;
+            }
             
+            Principal ingreso = new Principal();
+            ingreso.disenaFormulario(perfil);
+            pack();
             
             this.setDefaultCloseOperation(DISPOSE_ON_CLOSE); 
 

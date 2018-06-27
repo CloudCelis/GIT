@@ -5,12 +5,14 @@
  */
 package Vista;
 
-import java.awt.Dialog.ModalityType;
 import java.awt.Window;
-import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.*;
+
 
 
 /**
@@ -22,6 +24,9 @@ public class Principal extends javax.swing.JFrame {
     /**
      * Creates new form Principal
      */
+
+    RegistraPrestamo f = new RegistraPrestamo();
+    
     public Principal() {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
@@ -36,10 +41,22 @@ public class Principal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenuBar2 = new javax.swing.JMenuBar();
+        jMenu10 = new javax.swing.JMenu();
+        jMenu11 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        mbBarra = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mnuLogin = new javax.swing.JMenu();
         mnuSalir = new javax.swing.JMenu();
+
+        jMenu10.setText("File");
+        jMenuBar2.add(jMenu10);
+
+        jMenu11.setText("Edit");
+        jMenuBar2.add(jMenu11);
+
+        jMenuItem1.setText("jMenuItem1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -72,9 +89,9 @@ public class Principal extends javax.swing.JFrame {
         });
         jMenu1.add(mnuSalir);
 
-        jMenuBar1.add(jMenu1);
+        mbBarra.add(jMenu1);
 
-        setJMenuBar(jMenuBar1);
+        setJMenuBar(mbBarra);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -124,7 +141,10 @@ public class Principal extends javax.swing.JFrame {
         frmLogin f = new frmLogin();
         f.setAlwaysOnTop(true); //Esto nos permite que el jFrame sea un modal
         f.setVisible(true);
+
         
+        
+
 
     }//GEN-LAST:event_mnuLoginMouseClicked
 
@@ -168,11 +188,301 @@ public class Principal extends javax.swing.JFrame {
     {
         return mnuLogin;
     }
+    
+    public void disenaFormulario(int perfil)
+    {
+        switch(perfil)
+        {
+            case 1:
+                configuraAlumno();
+                break;
+            case 2:
+                configuraDocente();
+                break;
+            case 3:
+                configuraFuncionario();
+                break;
+            case 4:
+                configuraAdministrador();
+                break;
+        }
+        
+    }
+    
+    //Configuramos el menu de Alumno
+    private void configuraAlumno()
+    {
+        JMenu menu;
+        JMenuItem jm1;
+        JMenuItem jm2;
+        
+        setLayout(new FlowLayout());
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+        menu = new JMenu("Alumno");
+        
+        jm1 = new JMenuItem("Mantenedor 1");
+        jm1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                JMenuItem menuItem = (JMenuItem) e.getSource();
+                String text = menuItem.getText();
+                javax.swing.JOptionPane.showMessageDialog(null
+                    , "Bienvenido al menu " +  jm1.getText()
+                    , "Conectado"
+                    , JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
+        jm2 = new JMenuItem("Mantenedor 2");
+        jm2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JMenuItem menuItem = (JMenuItem) e.getSource();
+                String text = menuItem.getText();
+                javax.swing.JOptionPane.showMessageDialog(null
+                    , "Bienvenido al menu " +  jm2.getText()
+                    , "Conectado"
+                    , JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        menu.add(jm1);
+        menu.add(jm2);
+                
+        mbBarra.add(menu);
+    }
+
+    //Configura el menu de Docente
+    private void configuraDocente()
+    {
+        JMenu menu;
+        JMenuItem jm1;
+        JMenuItem jm2;
+        
+        setLayout(new FlowLayout());
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+        menu = new JMenu("Docente");
+        
+        jm1 = new JMenuItem("Mantenedor 1");
+        jm1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                JMenuItem menuItem = (JMenuItem) e.getSource();
+                String text = menuItem.getText();
+                javax.swing.JOptionPane.showMessageDialog(null
+                    , "Bienvenido al menu " +  jm1.getText()
+                    , "Conectado"
+                    , JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
+        jm2 = new JMenuItem("Mantenedor 2");
+        jm2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JMenuItem menuItem = (JMenuItem) e.getSource();
+                String text = menuItem.getText();
+                javax.swing.JOptionPane.showMessageDialog(null
+                    , "Bienvenido al menu " +  jm2.getText()
+                    , "Conectado"
+                    , JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        menu.add(jm1);
+        menu.add(jm2);
+                
+        mbBarra.add(menu);
+    }
+    
+    //configura el menu de Funcionaria
+    private void configuraFuncionario()
+    {
+        JMenu menu;
+        JMenuItem jm1;
+        JMenuItem jm2;
+        JMenuItem jm3;
+        JMenuItem jm4;
+        JMenu jm5;
+        
+        JMenuItem sm1;
+        JMenuItem sm2;
+        
+        setLayout(new FlowLayout());
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+        menu = new JMenu("Funcionario");
+        
+        jm1 = new JMenuItem("Registrar prestamo");
+        jm1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                JMenuItem menuItem = (JMenuItem) e.getSource();
+                String text = menuItem.getText();
+                
+                if(!f.isVisible())
+                {
+                    f.setAlwaysOnTop(true); //Esto nos permite que el jFrame sea un modal
+                    f.setVisible(true);
+                }
+
+            }
+        });
+        
+        jm2 = new JMenuItem("Renovar prestamos");
+        jm2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JMenuItem menuItem = (JMenuItem) e.getSource();
+                String text = menuItem.getText();
+                javax.swing.JOptionPane.showMessageDialog(null
+                    , "Bienvenido al menu " +  jm2.getText()
+                    , "Conectado"
+                    , JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
+        jm3 = new JMenuItem("Gestionar ingresos");
+        jm3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JMenuItem menuItem = (JMenuItem) e.getSource();
+                String text = menuItem.getText();
+                javax.swing.JOptionPane.showMessageDialog(null
+                    , "Bienvenido al menu " +  jm3.getText()
+                    , "Conectado"
+                    , JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
+        jm4 = new JMenuItem("Registrar devoluciones");
+        jm4.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JMenuItem menuItem = (JMenuItem) e.getSource();
+                String text = menuItem.getText();
+                javax.swing.JOptionPane.showMessageDialog(null
+                    , "Bienvenido al menu " +  jm4.getText()
+                    , "Conectado"
+                    , JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
+        jm5 = new JMenu("Registrar devoluciones");
+        
+        sm1 = new JMenuItem("Busqueda simple");
+        sm1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JMenuItem menuItem = (JMenuItem) e.getSource();
+                String text = menuItem.getText();
+                javax.swing.JOptionPane.showMessageDialog(null
+                    , "Bienvenido al menu " +  sm1.getText()
+                    , "Conectado"
+                    , JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        sm2 = new JMenuItem("Busqueda avanzada");
+        sm2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JMenuItem menuItem = (JMenuItem) e.getSource();
+                String text = menuItem.getText();
+                javax.swing.JOptionPane.showMessageDialog(null
+                    , "Bienvenido al menu " +  sm2.getText()
+                    , "Conectado"
+                    , JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
+        jm5.add(sm1);
+        jm5.add(sm2);
+
+        menu.add(jm1);
+        menu.add(jm2);
+        menu.add(jm3);
+        menu.add(jm4);
+        menu.add(jm5);
+                
+        mbBarra.add(menu);
+    }
+    
+    private void configuraAdministrador()
+    {
+        JMenu menu;
+        JMenuItem jm1;
+        JMenuItem jm2;
+        
+        setLayout(new FlowLayout());
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setVisible(true);
+        menu = new JMenu("Administrador");
+        
+        jm1 = new JMenuItem("Mantenedor 1");
+        jm1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) 
+            {
+                JMenuItem menuItem = (JMenuItem) e.getSource();
+                String text = menuItem.getText();
+                javax.swing.JOptionPane.showMessageDialog(null
+                    , "Bienvenido al menu " +  jm1.getText()
+                    , "Conectado"
+                    , JOptionPane.ERROR_MESSAGE);
+            }
+        });
+        
+        jm2 = new JMenuItem("Mantenedor 2");
+        jm2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JMenuItem menuItem = (JMenuItem) e.getSource();
+                String text = menuItem.getText();
+                javax.swing.JOptionPane.showMessageDialog(null
+                    , "Bienvenido al menu " +  jm2.getText()
+                    , "Conectado"
+                    , JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        menu.add(jm1);
+        menu.add(jm2);
+                
+        mbBarra.add(menu);
+    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenu10;
+    private javax.swing.JMenu jMenu11;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuBar mbBarra;
     private javax.swing.JMenu mnuLogin;
     private javax.swing.JMenu mnuSalir;
     // End of variables declaration//GEN-END:variables
+
+    
 }
+
+
+//class DynamicJList extends JFrame {
+//
+//    
+//    public DynamicJList() {
+//        // Set frame properties
+//        
+//
+//    }
+//
+//    public static void main(String args[]) {
+//        new DynamicJList();
+//    }
+//
+//}
