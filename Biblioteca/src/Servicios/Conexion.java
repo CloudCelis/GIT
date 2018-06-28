@@ -9,6 +9,7 @@ import java.sql.*;
 /**
  *
  * @author mcelis
+ * El profe es pulento
  */
 public class Conexion 
 {
